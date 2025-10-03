@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webserver-app
+  labels:
+    env: prod
+  namespace: webserver-ns
+spec:
+  containers:
+    - image: nginx:latest
+      name: webserer-app
+      ports:
+        - containerPort: 80
+          name: http-allow
