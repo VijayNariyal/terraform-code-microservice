@@ -18,11 +18,12 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     identity {
         type = "SystemAssigned"
     }
-}
   network_profile {
     network_plugin = "azure"
     network_policy = "calico"
   }
+}
+
 output "kube_config" {
   value = azurerm_kubernetes_cluster.kubernetes_cluster.kube_config_raw
 
