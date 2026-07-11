@@ -46,7 +46,7 @@ jobs:
 
   terraform-posttask:
     runs-on: ubuntu-latest
-    environment: dev-pipeline-validation
+    environment: manual-validation
     needs: terraform-pretask
     steps:
       - name: Checkout
