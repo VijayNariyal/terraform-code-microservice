@@ -27,18 +27,22 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -input=false
+        working-directory: ./kubernetes-code
 
       - name: Terraform Fmt
         id: fmt
         run: terraform fmt
+        working-directory: ./kubernetes-code
 
       - name: Terraform Validate
         id: validate
         run: terraform validate
+        working-directory: ./kubernetes-code
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan --var-file="terraform.tfvars"
+        run: terraform plan
+        working-directory: ./kubernetes-code
       
       
 
