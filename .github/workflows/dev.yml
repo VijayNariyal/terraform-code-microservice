@@ -6,7 +6,7 @@ permissions:
 on:
   workflow_dispatch
 jobs:
-  terraform-download:
+  terraform-pretask:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,7 +43,33 @@ jobs:
         id: plan
         run: terraform plan
         working-directory: ./kubernetes-code
-      
-      
 
+  terraform-posttask:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.0
+        
+      - name: Install Terraform
+        uses: little-core-labs/install-terraform@v2.0.0
+        with:
+          version: 1.15.8
+  
+      - name: Azure Login
+        uses: Azure/login@v3
+        with:
+          client-id: d45ad845-368f-45a0-afae-e438981595d1
+          tenant-id: 45e4ae45-5b5a-49d6-94f8-843982df448b
+          subscription-id: 976182b9-e908-47f4-9ee2-ba19ba1d1f1d
+  
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false
+        working-directory: ./kubernetes-code
+  
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply
+        working-directory: ./kubernetes-code
+  
             
